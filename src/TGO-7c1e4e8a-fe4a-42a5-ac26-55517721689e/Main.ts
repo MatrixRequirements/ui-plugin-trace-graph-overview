@@ -17,13 +17,13 @@ export class Plugin extends PluginCore {
             The page itself is implemented in the _ServerSettingsPage.ts 
         */
         customerSettingsPage: {
-            id: "BPP_projectsettings",
-            title: "BPP projectsettings page",
+            id: "TGO_projectsettings",
+            title: "TGO projectsettings page",
             enabled: true,
             defaultSettings: {
                 myServerSetting: "default value for setting defined in Interfaces.ts",
             },
-            settingName: "BPP_settings",
+            settingName: "TGO_settings",
             help: "This is my help text",
             helpUrl:"https://docs23.matrixreq.com"
         },
@@ -31,13 +31,13 @@ export class Plugin extends PluginCore {
             The page itself is implemented in the _ProjectSetingsPage.ts 
         */
         projectSettingsPage: {
-            id: "BPP_projectsettings",
-            title:"BPP projectsettings page",
+            id: "TGO_projectsettings",
+            title:"TGO projectsettings page",
             enabled: true,
             defaultSettings: {
                 myProjectSetting:  "default value for setting defined in Interfaces.ts",
             },
-            settingName: "BPP_settings",
+            settingName: "TGO_settings",
             help: "This is my help text",
             helpUrl:"https://docs23.matrixreq.com"
         },
@@ -46,17 +46,17 @@ export class Plugin extends PluginCore {
         */
         menuToolItem: {
             enabled: true,
-            title:"matrix-ui-plugin-boilerplate-menuitem",
+            title:"ui_plugin_trace_graph_overview-menuitem",
         },
         /*  Add a custom field to enter some data in the UI - set enabled to false if not needed.
             The field itself is implemented in the _Control.ts 
         */
         field: {
             enabled: true,
-            fieldType: "matrix-ui-plugin-boilerplate",
-            title: "matrix-ui-plugin-boilerplate-field",
+            fieldType: "ui_plugin_trace_graph_overview",
+            title: "ui_plugin_trace_graph_overview-field",
             fieldConfigOptions: {
-                id: "matrix-ui-plugin-boilerplate",
+                id: "ui_plugin_trace_graph_overview",
                 capabilities: {
                     canBePublished: false,
                     canBeReadonly: true,
@@ -67,7 +67,7 @@ export class Plugin extends PluginCore {
                 },
                 class: "",
                 help: "",
-                label: "matrix-ui-plugin-boilerplate-field",
+                label: "ui_plugin_trace_graph_overview-field",
             }
         },
         /*  Add a dashboard inside a project - set enabled to false if not needed.
@@ -75,8 +75,8 @@ export class Plugin extends PluginCore {
         */
         dashboard: {        
             
-            id:"BPP",
-            title: "BPP dashboard page",
+            id:"TGO",
+            title: "TGO dashboard page",
             enabled: true,
             icon: "fal fa-cog",
             parent: "DASHBOARDS",
