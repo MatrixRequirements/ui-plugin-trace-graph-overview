@@ -54,7 +54,7 @@ export class DashboardPage {
                 prefix: "Include the following folder:",
                 buttonName: "Select items",
                 singleFolderOnly: false,
-                //  showOnly: [this.settings.categoryName],
+              showOnly: IC.getCategories(true).filter(cat=> cat!= "SIGN" && cat != "REPORT"),
             };
 
             this.itemSelector.init({
@@ -122,10 +122,10 @@ export class DashboardPage {
             d.done((result: XRTrimNeedle) => {
                 this.result = result;
                 $("#contentPanel").show();
-                $("#waitForIt").html("");
 
                 if (result.needles.length > this.settings.maxItemsCount) {
                     ml.UI.showError("Too many items", "Please select maximum " + this.settings.maxItemsCount + " items")
+                     $("#waitForIt").html("");
                     return;
                 }
                 
@@ -143,7 +143,7 @@ export class DashboardPage {
             for (const cat of IC.getCategories()) {
                 const textIcon:{text:string,color:string} = <{text:string,color:string}> IC.getCategorySetting(cat, "texticon");
             
-                let color = "black"
+                let color = "#888888"
                 if (textIcon && textIcon.color)
                 {
                     color = textIcon.color;
@@ -240,6 +240,9 @@ export class DashboardPage {
                  let item = this.getNodeAt(params.pointer.DOM);
                   window.open("/"+matrixSession.getProject() + "/"+item)
               });
+            
+              $("#waitForIt").html("");
+            
         }   
     getEdge(ref: IItemIdParts, otherRef: IItemIdParts, isUp: boolean): Edge {
         /**graph legend:
