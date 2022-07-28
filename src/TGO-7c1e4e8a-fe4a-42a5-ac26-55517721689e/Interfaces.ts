@@ -21,6 +21,7 @@ export interface IServerSettings {
 * The user can edit these in the admin through the Project Setting Page
 */
 export interface IProjectSettings {
+    maxItemsCount: number;
     /** example of a project setting */
     myProjectSetting:string; 
 }

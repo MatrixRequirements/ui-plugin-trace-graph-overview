@@ -35,7 +35,8 @@ export class Plugin extends PluginCore {
             title:"TGO projectsettings page",
             enabled: true,
             defaultSettings: {
-                myProjectSetting:  "default value for setting defined in Interfaces.ts",
+                myProjectSetting: "default value for setting defined in Interfaces.ts",
+                maxItemsCount: 100
             },
             settingName: "TGO_settings",
             help: "This is my help text",
@@ -46,7 +47,7 @@ export class Plugin extends PluginCore {
         */
         menuToolItem: {
             enabled: true,
-            title:"ui_plugin_trace_graph_overview-menuitem",
+            title:"Traceability holistic overview",
         },
         /*  Add a custom field to enter some data in the UI - set enabled to false if not needed.
             The field itself is implemented in the _Control.ts 
