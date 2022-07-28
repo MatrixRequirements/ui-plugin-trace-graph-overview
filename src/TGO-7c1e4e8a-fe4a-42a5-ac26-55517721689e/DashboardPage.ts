@@ -13,7 +13,7 @@ export class DashboardPage {
     constructor() {
         this.settings = { ...Plugin.config.projectSettingsPage.defaultSettings, ...IC.getSettingJSON(Plugin.config.projectSettingsPage.settingName, {}) } ;
     }
-
+    
     private getDashboardDOM(): JQuery {
         return $(`
                 <div class="panel-body-v-scroll fillHeight panel-default">

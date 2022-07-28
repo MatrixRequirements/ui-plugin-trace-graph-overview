@@ -15,13 +15,14 @@ import { Plugin } from "./Main";
             
             return $(`
                 <div class="panel-body-v-scroll fillHeight">
-                    This is my content : ${settings.myProjectSetting}
+                    <div id="options">
+                    </div>
                 </div>
                 `);
         };
 
 
-        self.settings = { ...Plugin.config.projectSettingsPage.defaultSettings, ...configApp.getServerSetting(Plugin.config.projectSettingsPage.settingName, {}) };
+        self.settings = { ...Plugin.config.projectSettingsPage.defaultSettings, ...IC.getSettingJSON(Plugin.config.projectSettingsPage.settingName, {}) };
         self.renderSettingPage = () => {
             self.initPage(
                 `${ Plugin.config.projectSettingsPage.title}` ,
@@ -54,8 +55,10 @@ import { Plugin } from "./Main";
             self.settingsOriginal = { ...self.settings, ...settings };
             if (!self.settingsChanged)
                 self.settingsChanged = { ...self.settings, ...settings };
-            app.itemForm.append(self.getSettingsDOM(self.settingsChanged));
-            
+            let dom = self.getSettingsDOM(self.settingsChanged);
+            app.itemForm.append(dom);
+            ml.UI.addCheckbox($("#options",dom), "Enabled", self.settingsChanged, "enabled",self.paramChanged);
+            ml.UI.addDropdownNumber($("#options",dom), "Max item count", self.settingsChanged, "maxItemsCount", 10, 200, self.paramChanged);
         };
 
         self.paramChanged = () => {

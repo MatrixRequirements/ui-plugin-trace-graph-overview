@@ -23,7 +23,7 @@ export interface IServerSettings {
 export interface IProjectSettings {
     maxItemsCount: number;
     /** example of a project setting */
-    myProjectSetting:string; 
+    enabled:boolean; 
 }
 
 /** Setting for custom fields 

@@ -233,7 +233,7 @@ export abstract class PluginCore implements IPlugin {
 
     getProjectPages(): IProjectPageParam[] {
         const pages: IProjectPageParam[] = [];
-        if (Plugin.config.dashboard.enabled) {
+        if (this.enableDashboard()&& Plugin.config.dashboard.enabled) {
             pages.push({
                 id: Plugin.config.dashboard.id,
                 title: Plugin.config.dashboard.title,

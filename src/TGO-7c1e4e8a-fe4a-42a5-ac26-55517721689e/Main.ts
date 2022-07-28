@@ -1,5 +1,6 @@
 
 import{ PluginCore,IPluginConfig} from "./core/PluginCore"
+import { ProjectSettingsPage } from "./ProjectSettingsPage";
 /** This class is allows you to configure the features of your plugin.
  * 
  *  You can also implement functions to into the plugin (at start in the constructor, when loading a project, when loading an item)
@@ -19,7 +20,7 @@ export class Plugin extends PluginCore {
         customerSettingsPage: {
             id: "TGO_projectsettings",
             title: "TGO projectsettings page",
-            enabled: true,
+            enabled: false,
             defaultSettings: {
                 myServerSetting: "default value for setting defined in Interfaces.ts",
             },
@@ -35,7 +36,7 @@ export class Plugin extends PluginCore {
             title:"TGO projectsettings page",
             enabled: true,
             defaultSettings: {
-                myProjectSetting: "default value for setting defined in Interfaces.ts",
+                enabled:true,
                 maxItemsCount: 100
             },
             settingName: "TGO_settings",
@@ -46,14 +47,14 @@ export class Plugin extends PluginCore {
             The tool itself is implemented in the _Tool.ts 
         */
         menuToolItem: {
-            enabled: true,
+            enabled: false,
             title:"Traceability holistic overview",
         },
         /*  Add a custom field to enter some data in the UI - set enabled to false if not needed.
             The field itself is implemented in the _Control.ts 
         */
         field: {
-            enabled: true,
+            enabled: false,
             fieldType: "ui_plugin_trace_graph_overview",
             title: "ui_plugin_trace_graph_overview-field",
             fieldConfigOptions: {
@@ -86,6 +87,11 @@ export class Plugin extends PluginCore {
         }
     };
 
+    
+    protected  enableDashboard(){
+        
+        return ProjectSettingsPage().settings.enabled;
+    }
     /**
      * The constructor is loaded once after all the source code is loaded by the browser. 
      * Nothing is known about the instance, project, user etc.
