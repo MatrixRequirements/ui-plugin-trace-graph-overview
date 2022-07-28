@@ -13,7 +13,7 @@ export class DashboardPage {
     constructor() {
         this.settings = { ...Plugin.config.projectSettingsPage.defaultSettings, ...IC.getSettingJSON(Plugin.config.projectSettingsPage.settingName, {}) } ;
     }
-    
+
     private getDashboardDOM(): JQuery {
         return $(`
                 <div class="panel-body-v-scroll fillHeight panel-default">
@@ -166,7 +166,7 @@ export class DashboardPage {
                     for (const downLink of needle.downLinkList) {
                         const downRef = ml.Item.parseRef(downLink.itemRef)
                         const cat = downRef.type;
-                        itemMap[ref.id] = colors[cat];
+                        itemMap[downRef.id] = colors[cat];
                        
                         if (nodeArray.findIndex(n => n.id == downRef.id) == -1)
                              nodeArray.push({ id: downRef.id, label: downRef.id, color: itemMap[downRef.id] })
