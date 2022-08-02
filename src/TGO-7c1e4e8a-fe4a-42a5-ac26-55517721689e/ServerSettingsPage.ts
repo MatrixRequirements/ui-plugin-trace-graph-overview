@@ -10,7 +10,7 @@ import { Plugin } from "./Main";
         if (window["ConfigPage"] !== undefined) {
             self = { ...Object.getPrototypeOf(new ConfigPage()) };
         }
-        self.settings = { ...Plugin.config.customerSettingsPage.defaultSettings, ...configApp.getServerSetting(Plugin.config.customerSettingsPage.settingName, {}) };
+        self.settings =()=> { return { ...Plugin.config.customerSettingsPage.defaultSettings, ...configApp.getServerSetting(Plugin.config.customerSettingsPage.settingName, {}) }} ;
         
 
         /** Customize this method to generate static HTML.  */
@@ -27,9 +27,9 @@ import { Plugin } from "./Main";
         /** Customize this method to add dynamic content*/
         self.showSimple = () => {
 
-            self.settingsOriginal = { ...self.settings };
+            self.settingsOriginal = { ...self.settings() };
             if (!self.settingsChanged)
-                 self.settingsChanged = { ...self.settings };
+                 self.settingsChanged = { ...self.settings() };
             app.itemForm.append(self.getSettingsDOM( self.settingsChanged));
         };
 

@@ -37,6 +37,8 @@ export interface IPluginFeatureBase{
 }
 
 export interface IPluginFeature<T> extends IPluginFeatureBase {
+    /** Type is used to determine node type in the setting tree */
+    type:string,
     /** Setting name that's used by REST api to persist settings */
     settingName: string,
     /** Default settings when nothing has been save yet*/
@@ -71,7 +73,7 @@ export interface IPluginSettingPage<T> {
     showAdvanced?: () => void,
     showSimple?: () => void,
     getSettingsDOM?: (_setting?:T) => JQuery,
-    settings?: T,
+    settings?:  ()=>T,
     saveAsync?: () => JQueryDeferred<unknown>,
     paramChanged?:()=>void,
     settingsOriginal?: T,
@@ -80,9 +82,12 @@ export interface IPluginSettingPage<T> {
     pageId?:string,
     initPage?: (_title: string, _showAdvancedBtn: boolean, _showDeleteText: string, _help: string, _externalHelp?: string, _showCopy?: boolean) => void
     showAdvancedCode?:(_code:string, _success:(_code:string) => void, _semanticValidate?:IValidationSpec) =>void
+    configApp?:IConfigApp
+}
 
-    }
-
+export interface IConfigApp{
+    getJSONProjectSettings?( projectId:string, settingId?:string  ):IJsonSetting[] 
+}
 
 export abstract class PluginCore implements IPlugin {
 
@@ -186,7 +191,7 @@ export abstract class PluginCore implements IPlugin {
                 {
                     id: Plugin.config.projectSettingsPage.id,
                     title: Plugin.config.projectSettingsPage.title,
-                    type:Plugin.config.projectSettingsPage.id,
+                    type:Plugin.config.projectSettingsPage.type,
                     render: (_ui: JQuery) => {
                         pbpi.renderSettingPage();
                     },
@@ -213,7 +218,7 @@ export abstract class PluginCore implements IPlugin {
             return [<ISettingPage> {
                     id: Plugin.config.customerSettingsPage.id,
                     title: Plugin.config.customerSettingsPage.title,
-                        type:Plugin.config.projectSettingsPage.id,
+                    type:Plugin.config.projectSettingsPage.type,
                     render: (_ui: JQuery) => {
                         pbpi.renderSettingPage();
                     },

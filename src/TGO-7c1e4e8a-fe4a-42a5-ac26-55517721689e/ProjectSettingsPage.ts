@@ -5,9 +5,10 @@ import { Plugin } from "./Main";
     /* project Setting page closure*/
     export function ProjectSettingsPage():IPluginSettingPage <IProjectSettings>{
         let self: IPluginSettingPage<IProjectSettings> = {};
-
+        
         if (window["ConfigPage"] !== undefined) {
-            self = { ... Object.getPrototypeOf( new ConfigPage()) }
+            self = { ...Object.getPrototypeOf(new ConfigPage()) }
+            self.configApp = window["configApp"];
         }
 
         
@@ -22,7 +23,19 @@ import { Plugin } from "./Main";
         };
 
 
-        self.settings = { ...Plugin.config.projectSettingsPage.defaultSettings, ...IC.getSettingJSON(Plugin.config.projectSettingsPage.settingName, {}) };
+        self.settings = () => {
+            let currentSettings = {};
+            if (self.configApp) {
+                let filterSettings = self.configApp.getJSONProjectSettings(self.getProject(), Plugin.config.projectSettingsPage.settingName);
+                if (filterSettings.length == 1)
+                    currentSettings = filterSettings[0].value;
+            }
+            else {
+                currentSettings = IC.getSettingJSON(Plugin.config.projectSettingsPage.settingName, {});
+            }
+            console.log("Returning project settings");
+            return { ...Plugin.config.projectSettingsPage.defaultSettings, ...currentSettings }
+        };
         self.renderSettingPage = () => {
             self.initPage(
                 `${ Plugin.config.projectSettingsPage.title}` ,
@@ -51,10 +64,8 @@ import { Plugin } from "./Main";
         };
         self.showSimple = () => {
 
-            const settings = IC.getSettingJSON(Plugin.config.projectSettingsPage.settingName, {});
-            self.settingsOriginal = { ...self.settings, ...settings };
-            if (!self.settingsChanged)
-                self.settingsChanged = { ...self.settings, ...settings };
+            self.settingsOriginal = self.settings();
+            self.settingsChanged = self.settingsOriginal;
             let dom = self.getSettingsDOM(self.settingsChanged);
             app.itemForm.append(dom);
             ml.UI.addCheckbox($("#options",dom), "Enabled", self.settingsChanged, "enabled",self.paramChanged);

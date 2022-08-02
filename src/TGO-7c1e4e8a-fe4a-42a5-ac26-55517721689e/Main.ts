@@ -18,13 +18,14 @@ export class Plugin extends PluginCore {
             The page itself is implemented in the _ServerSettingsPage.ts 
         */
         customerSettingsPage: {
-            id: "TGO_projectsettings",
+            id: "TGOcs",
             title: "TGO projectsettings page",
             enabled: false,
             defaultSettings: {
                 myServerSetting: "default value for setting defined in Interfaces.ts",
             },
             settingName: "TGO_settings",
+            type:"TGO",
             help: "This is my help text",
             helpUrl:"https://docs23.matrixreq.com"
         },
@@ -32,8 +33,9 @@ export class Plugin extends PluginCore {
             The page itself is implemented in the _ProjectSetingsPage.ts 
         */
         projectSettingsPage: {
-            id: "TGO_projectsettings",
+            id: "TGOps",
             title:"TGO projectsettings page",
+            type:"TGO",
             enabled: true,
             defaultSettings: {
                 enabled:true,
@@ -90,7 +92,7 @@ export class Plugin extends PluginCore {
     
     protected  enableDashboard(){
         
-        return ProjectSettingsPage().settings.enabled;
+        return ProjectSettingsPage().settings().enabled;
     }
     /**
      * The constructor is loaded once after all the source code is loaded by the browser. 
@@ -111,10 +113,12 @@ export class Plugin extends PluginCore {
      */
     onInitProject(project:string) {
 
+        console.log("Project init --> " + project);
         // here is a good place to decide based on the project (maybe some project setting), whether the plugin should be enabled 
         
         // if not:
         // this.enabledInContext = false;
+
     }
 
     /** this method is called just before the rendering of an item is done
